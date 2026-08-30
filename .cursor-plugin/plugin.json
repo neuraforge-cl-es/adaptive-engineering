@@ -1,7 +1,7 @@
 {
   "name": "adaptive-engineering",
   "description": "Adaptive software-engineering workflow: use the least process necessary, then ship the simplest verified solution.",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "author": {
     "name": "Neuraforge"
   },

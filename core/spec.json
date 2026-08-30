@@ -1,6 +1,6 @@
 {
   "name": "adaptive-engineering",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "modes": [
     "fast",
     "standard",
@@ -41,6 +41,7 @@
     "claude-code": "native",
     "codex": "native",
     "gemini-cli": "native",
+    "antigravity": "generated",
     "opencode": "generated",
     "agent-plugins": "generated"
   }

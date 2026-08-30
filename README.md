@@ -8,7 +8,7 @@ Adaptive software-engineering workflows for AI coding agents.
 
 > Use the least process necessary to produce the simplest correct, verified solution.
 
-**Status:** `0.2.0`
+**Status:** `0.3.0`
 
 Adaptive Engineering selects one of three modes for each task:
 
@@ -28,6 +28,7 @@ A small diff can still be DEEP when its failure cost is high.
 | Claude Code | plugin and marketplace manifests | Native |
 | ChatGPT / Codex | `.codex-plugin/plugin.json` and portable skills | Native |
 | Gemini CLI | extension manifest, context, skills, agents, TOML commands | Native |
+| Google Antigravity | generated plugin with skills, rule, agents, and canonical core | Build target |
 | Agent Plugins 1.0 | generated portable package | Build target |
 | OpenCode | generated `.opencode/skills` adapter | Build target |
 
@@ -83,6 +84,7 @@ Python 3.11 or newer is required. No third-party packages are used.
 ```bash
 python3 scripts/validate.py
 python3 scripts/build-agent-plugin.py
+python3 scripts/build-antigravity.py
 python3 scripts/build-opencode.py
 python3 scripts/validate.py --dist
 ```

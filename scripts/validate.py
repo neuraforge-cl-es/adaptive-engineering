@@ -192,6 +192,8 @@ def validate_core(errors: list[str]) -> dict[str, Any]:
     version = str(spec.get("version", ""))
     if not SEMVER_RE.fullmatch(version):
         errors.append(f"core/spec.json: invalid semantic version {version!r}")
+    if spec.get("platforms", {}).get("antigravity") != "generated":
+        errors.append("core/spec.json: Antigravity platform must be declared as 'generated'")
     for path in (
         ROOT / "core" / "PRINCIPLES.md",
         ROOT / "core" / "METHODOLOGY.md",
@@ -240,6 +242,79 @@ def validate_generated_packages(spec: dict[str, Any], errors: list[str]) -> None
         ):
             if not path.is_file():
                 errors.append(f"generated OpenCode adapter missing {relative(path)}")
+
+    antigravity_root = ROOT / "dist" / "antigravity" / "adaptive-engineering"
+    antigravity_manifest_path = antigravity_root / "plugin.json"
+    if not antigravity_manifest_path.exists():
+        errors.append("missing generated Antigravity plugin; run scripts/build-antigravity.py")
+    else:
+        manifest = load_json(antigravity_manifest_path, errors)
+        allowed = {"$schema", "name", "description"}
+        extra = set(manifest) - allowed
+        if extra:
+            errors.append(
+                f"{relative(antigravity_manifest_path)}: unsupported Antigravity fields "
+                f"{sorted(extra)}"
+            )
+        if manifest.get("$schema") != "https://antigravity.google/schemas/v1/plugin.json":
+            errors.append(f"{relative(antigravity_manifest_path)}: invalid Antigravity schema")
+        if manifest.get("name") != spec.get("name"):
+            errors.append(f"{relative(antigravity_manifest_path)}: name must match core/spec.json")
+        if not isinstance(manifest.get("description"), str) or not manifest["description"].strip():
+            errors.append(f"{relative(antigravity_manifest_path)}: missing description")
+
+        generated_skills = validate_skills(antigravity_root / "skills", errors)
+        compare_names(
+            "generated Antigravity skills",
+            generated_skills,
+            spec["components"]["skills"],
+            errors,
+        )
+        entry_skill_path = antigravity_root / "skills" / "adaptive-engineering" / "SKILL.md"
+        if entry_skill_path.is_file():
+            entry_text = entry_skill_path.read_text(encoding="utf-8")
+            core_links = re.findall(r"\]\((\.\./\.\./core/[^)]+)\)", entry_text)
+            if len(core_links) != 5:
+                errors.append(
+                    "generated Antigravity entry skill must reference the two core documents "
+                    "and three mode workflows"
+                )
+            for link in core_links:
+                if not (entry_skill_path.parent / link).resolve().is_file():
+                    errors.append(
+                        f"generated Antigravity entry skill has a broken core link: {link}"
+                    )
+        generated_agents = validate_named_markdown(
+            antigravity_root / "agents",
+            {".md"},
+            {"name", "description"},
+            errors,
+        )
+        compare_names(
+            "generated Antigravity agents",
+            generated_agents,
+            spec["components"]["agents"],
+            errors,
+        )
+
+        rule_path = antigravity_root / "rules" / "adaptive-engineering.md"
+        if not rule_path.is_file():
+            errors.append("generated Antigravity plugin is missing its persistent rule")
+        elif len(rule_path.read_text(encoding="utf-8")) > 12_000:
+            errors.append("generated Antigravity rule exceeds the 12,000-character host limit")
+
+        generated_core_path = antigravity_root / "core" / "spec.json"
+        if not generated_core_path.is_file():
+            errors.append("generated Antigravity plugin is missing canonical core")
+        else:
+            generated_core = load_json(generated_core_path, errors)
+            if generated_core.get("name") != spec.get("name") or generated_core.get(
+                "version"
+            ) != spec.get("version"):
+                errors.append("generated Antigravity core identity must match core/spec.json")
+
+        if not (antigravity_root / "LICENSE").is_file():
+            errors.append("generated Antigravity plugin is missing LICENSE")
 
 
 def main() -> int:
