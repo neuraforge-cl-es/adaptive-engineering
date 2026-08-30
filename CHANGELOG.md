@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.4.0 — 2026-08-30
+
+- Added community health files for contributions, security reporting, pull requests, and structured bug/feature issues.
+- Refreshed the public README with a clearer value proposition, Quick Start, platform matrix, architecture, verification, and design principles.
+- Added deterministic release packaging for Cursor, Agent Plugins 1.0, Google Antigravity, and OpenCode.
+- Added `SHA256SUMS.txt` generation for downloadable release assets.
+- Added a release workflow that verifies tag/version alignment, rebuilds generated adapters, validates them, and uploads platform ZIPs to GitHub Releases.
+- Extended the normal validation workflow so release packaging is exercised on pull requests before release changes can reach `main`.
+- Documented release downloads starting with `v0.4.0`.
+
 ## 0.3.0 — 2026-08-30
 
 - Added a generated Google Antigravity plugin using the official `plugin.json` schema.

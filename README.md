@@ -13,8 +13,8 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/neuraforge-cl-es/adaptive-engineering/releases/tag/v0.3.0">
-    <img src="https://img.shields.io/badge/version-v0.3.0-blue" alt="Version v0.3.0">
+  <a href="https://github.com/neuraforge-cl-es/adaptive-engineering/releases/tag/v0.4.0">
+    <img src="https://img.shields.io/badge/version-v0.4.0-blue" alt="Version v0.4.0">
   </a>
   <a href="https://github.com/neuraforge-cl-es/adaptive-engineering/actions/workflows/validate.yml">
     <img src="https://github.com/neuraforge-cl-es/adaptive-engineering/actions/workflows/validate.yml/badge.svg" alt="Validate">
@@ -107,7 +107,7 @@ gemini extensions link "$(pwd)"
 Install the released version directly from GitHub:
 
 ```bash
-gemini extensions install https://github.com/neuraforge-cl-es/adaptive-engineering --ref v0.3.0
+gemini extensions install https://github.com/neuraforge-cl-es/adaptive-engineering --ref v0.4.0
 ```
 
 For ChatGPT / Codex, Google Antigravity, Agent Plugins 1.0, and OpenCode, see the complete [installation instructions](docs/INSTALLATION.md).
