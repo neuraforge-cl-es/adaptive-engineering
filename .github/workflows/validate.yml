@@ -17,13 +17,20 @@ jobs:
           python-version: "3.12"
       - name: Validate native packages
         run: python3 scripts/validate.py
-      - name: Build generated adapters
-        run: |
-          python3 scripts/build-agent-plugin.py
-          python3 scripts/build-antigravity.py
-          python3 scripts/build-opencode.py
+      - name: Build release assets
+        run: python3 scripts/package-release.py
       - name: Validate generated adapters
         run: python3 scripts/validate.py --dist
+      - name: Verify release asset set
+        shell: bash
+        run: |
+          version="$(python3 -c 'import json; print(json.load(open("core/spec.json"))["version"])')"
+          test -f "dist/releases/adaptive-engineering-cursor-v${version}.zip"
+          test -f "dist/releases/adaptive-engineering-agent-plugin-v${version}.zip"
+          test -f "dist/releases/adaptive-engineering-antigravity-v${version}.zip"
+          test -f "dist/releases/adaptive-engineering-opencode-v${version}.zip"
+          test -f dist/releases/SHA256SUMS.txt
+          (cd dist/releases && sha256sum --check SHA256SUMS.txt)
       - name: Test Antigravity plugin installation layout
         run: |
           adaptive_test_root="$(mktemp -d)"

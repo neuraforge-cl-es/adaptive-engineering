@@ -1,5 +1,17 @@
 # Installation
 
+## Release downloads
+
+Starting with the next release after `v0.3.0`, GitHub Releases publishes ready-to-download ZIP packages in addition to the source archives:
+
+- `adaptive-engineering-cursor-vX.Y.Z.zip`
+- `adaptive-engineering-agent-plugin-vX.Y.Z.zip`
+- `adaptive-engineering-antigravity-vX.Y.Z.zip`
+- `adaptive-engineering-opencode-vX.Y.Z.zip`
+- `SHA256SUMS.txt`
+
+Use `SHA256SUMS.txt` to verify downloaded packages before installing them. The release workflow checks that the Git tag matches the version declared in `core/spec.json`, rebuilds generated adapters from the tagged source, validates them, and only then uploads the assets.
+
 ## Cursor
 
 Install globally for the current user:
