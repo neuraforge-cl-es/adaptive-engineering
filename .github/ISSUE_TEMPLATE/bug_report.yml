@@ -1,0 +1,81 @@
+name: Bug report
+description: Report a reproducible problem in Adaptive Engineering
+title: "bug: "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a bug. Please provide enough information to reproduce and verify the issue. Do not use this form for security vulnerabilities; follow SECURITY.md instead.
+
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Platform or component
+      options:
+        - Canonical core / methodology
+        - Cursor
+        - Claude Code
+        - ChatGPT / Codex
+        - Gemini CLI
+        - Google Antigravity
+        - Agent Plugins 1.0
+        - OpenCode
+        - CI / tooling
+        - Documentation
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Version or commit
+      placeholder: v0.3.0 or commit SHA
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Problem
+      description: What happened, and what did you expect instead?
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction steps
+      description: Provide the smallest reproducible sequence you can.
+      placeholder: |
+        1. Install ...
+        2. Run ...
+        3. Observe ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Verification evidence
+      description: Include relevant logs, command output, screenshots, or failing validation results.
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Include OS, host/IDE version, Python version, and other relevant environment details.
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checklist
+      options:
+        - label: I searched existing issues for the same problem.
+          required: true
+        - label: This report does not contain secrets, credentials, or private data.
+          required: true
+        - label: This is not a security vulnerability.
+          required: true
