@@ -1,0 +1,47 @@
+{
+  "name": "adaptive-engineering",
+  "version": "0.2.0",
+  "modes": [
+    "fast",
+    "standard",
+    "deep"
+  ],
+  "components": {
+    "rules": [
+      "adaptive-engineering"
+    ],
+    "skills": [
+      "adaptive-engineering",
+      "code-review",
+      "existing-system-scan",
+      "minimal-planning",
+      "simplification-gate",
+      "systematic-debugging",
+      "task-triage",
+      "verification",
+      "verified-implementation"
+    ],
+    "agents": [
+      "adaptive-architect",
+      "adaptive-builder",
+      "adaptive-reviewer",
+      "adaptive-simplifier"
+    ],
+    "commands": [
+      "deep",
+      "fast",
+      "review",
+      "simplify",
+      "standard",
+      "triage"
+    ]
+  },
+  "platforms": {
+    "cursor": "native",
+    "claude-code": "native",
+    "codex": "native",
+    "gemini-cli": "native",
+    "opencode": "generated",
+    "agent-plugins": "generated"
+  }
+}

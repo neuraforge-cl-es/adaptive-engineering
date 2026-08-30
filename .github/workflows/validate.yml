@@ -1,0 +1,33 @@
+name: Validate
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Validate native packages
+        run: python3 scripts/validate.py
+      - name: Build generated adapters
+        run: |
+          python3 scripts/build-agent-plugin.py
+          python3 scripts/build-opencode.py
+      - name: Validate generated adapters
+        run: python3 scripts/validate.py --dist
+      - name: Test Cursor install and uninstall
+        run: |
+          test_root="$(mktemp -d)"
+          export ADAPTIVE_ENGINEERING_CURSOR_PLUGIN_ROOT="$test_root/plugins"
+          ./scripts/install-local.sh
+          test -f "$ADAPTIVE_ENGINEERING_CURSOR_PLUGIN_ROOT/adaptive-engineering/.cursor-plugin/plugin.json"
+          ./scripts/uninstall-local.sh
+          test ! -e "$ADAPTIVE_ENGINEERING_CURSOR_PLUGIN_ROOT/adaptive-engineering"

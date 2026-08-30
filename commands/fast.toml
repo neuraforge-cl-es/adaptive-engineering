@@ -1,0 +1,4 @@
+description = "Execute the current task using FAST mode"
+prompt = """
+Use Adaptive Engineering FAST mode for the current task. Inspect only the context needed to act safely, reuse existing or native behavior, make the smallest coherent change, run targeted verification, and simplify the diff. Escalate if a security, data, public-contract, or production boundary appears.
+"""

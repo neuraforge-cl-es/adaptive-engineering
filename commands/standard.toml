@@ -1,0 +1,4 @@
+description = "Execute the current task using STANDARD mode"
+prompt = """
+Use Adaptive Engineering STANDARD mode for the current task. Inspect the subsystem, state concise acceptance criteria, declare a small complexity budget, make a short plan, implement and test in coherent increments, simplify the result, and verify final behavior. Escalate to DEEP if a high-risk boundary appears.
+"""
