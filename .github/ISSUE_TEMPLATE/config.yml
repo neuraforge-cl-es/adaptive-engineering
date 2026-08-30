@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security vulnerability
+    url: https://github.com/neuraforge-cl-es/adaptive-engineering/security
+    about: Do not report security vulnerabilities publicly. Use the repository security reporting options described in SECURITY.md.
