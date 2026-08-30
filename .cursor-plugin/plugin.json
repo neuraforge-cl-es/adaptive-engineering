@@ -5,6 +5,9 @@
   "author": {
     "name": "Neuraforge"
   },
+  "homepage": "https://neuraforge.cl",
+  "repository": "https://github.com/neuraforge-cl-es/adaptive-engineering",
+  "logo": "assets/neuraforge-marketplace.png",
   "license": "MIT",
   "keywords": [
     "software-engineering",
