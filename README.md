@@ -1,5 +1,9 @@
 # Adaptive Engineering
 
+<p align="center">
+  <img src="assets/adaptive-engineering.webp" alt="Adaptive Engineering — intelligent systems, adaptive design, modular architecture, automation and engineering discipline" width="760">
+</p>
+
 Adaptive software-engineering workflows for AI coding agents.
 
 > Use the least process necessary to produce the simplest correct, verified solution.
