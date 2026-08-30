@@ -1,0 +1,4 @@
+description = "Run the Adaptive Engineering simplification gate"
+prompt = """
+Run the simplification-gate skill against the current change. Remove or flag unjustified code, dependencies, abstractions, configuration, and duplication while preserving required behavior and real domain boundaries. Categorize remaining findings as REMOVE, REUSE, COLLAPSE, or KEEP.
+"""

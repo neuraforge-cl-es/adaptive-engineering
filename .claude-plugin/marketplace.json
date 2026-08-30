@@ -1,0 +1,13 @@
+{
+  "name": "neuraforge-plugins",
+  "owner": {
+    "name": "Neuraforge"
+  },
+  "plugins": [
+    {
+      "name": "adaptive-engineering",
+      "source": "./",
+      "description": "Adaptive engineering workflows for proportionate planning, implementation, simplification, and verification."
+    }
+  ]
+}

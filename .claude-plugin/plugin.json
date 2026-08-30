@@ -4,18 +4,5 @@
   "version": "0.2.0",
   "author": {
     "name": "Neuraforge"
-  },
-  "license": "MIT",
-  "keywords": [
-    "software-engineering",
-    "workflow",
-    "tdd",
-    "debugging",
-    "code-review",
-    "simplicity",
-    "yagni",
-    "cursor",
-    "agent-skills",
-    "adaptive-engineering"
-  ]
+  }
 }

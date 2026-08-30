@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.2.0 — 2026-08-30
+
+- Extracted a canonical, host-agnostic methodology under `core/`.
+- Added the portable `adaptive-engineering` entry skill, bringing the shared skill set to nine.
+- Preserved the Cursor plugin surface and upgraded its manifest to `0.2.0`.
+- Added native Claude Code, ChatGPT/Codex, and Gemini CLI manifests and adapters.
+- Added six Gemini CLI TOML commands alongside the existing Markdown commands.
+- Added builders for Agent Plugins 1.0 and OpenCode discovery layouts.
+- Expanded zero-dependency validation across native and generated packages.
+- Added GitHub Actions validation and Cursor install/uninstall round-trip testing.
+- Fixed physical-copy uninstall behavior and clarified that source updates require reinstalling Cursor.
+
 ## 0.1.2 — 2026-08-30
 
 - Fixed invalid YAML frontmatter in `commands/fast.md`; Cursor was silently dropping `/fast`, leaving only five commands.

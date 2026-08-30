@@ -1,0 +1,4 @@
+description = "Review the current change for material engineering risks"
+prompt = """
+Use the code-review skill on the current change. Prioritize correctness, security, data integrity, compatibility, operational behavior, meaningful verification, and unjustified complexity. For each material finding, identify the location, failure mechanism, severity, and smallest correction.
+"""
