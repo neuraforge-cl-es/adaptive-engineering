@@ -56,10 +56,44 @@ gemini extensions link "$(pwd)"
 After a tagged release, install from GitHub:
 
 ```bash
-gemini extensions install https://github.com/neuraforge-cl-es/adaptive-engineering --ref v0.2.0
+gemini extensions install https://github.com/neuraforge-cl-es/adaptive-engineering --ref v0.3.0
 ```
 
 Restart the Gemini CLI session after installing or updating the extension.
+
+## Google Antigravity
+
+Build the generated plugin:
+
+```bash
+python3 scripts/build-antigravity.py
+```
+
+For a global Antigravity installation available to every project:
+
+```bash
+adaptive_plugin_target="$HOME/.gemini/config/plugins/adaptive-engineering"
+mkdir -p "$adaptive_plugin_target"
+cp -a dist/antigravity/adaptive-engineering/. "$adaptive_plugin_target/"
+```
+
+For a workspace-only installation, run this from the target workspace root:
+
+```bash
+adaptive_plugin_target=".agents/plugins/adaptive-engineering"
+mkdir -p "$adaptive_plugin_target"
+cp -a /path/to/adaptive-engineering/dist/antigravity/adaptive-engineering/. "$adaptive_plugin_target/"
+```
+
+For Antigravity CLI across all working directories:
+
+```bash
+adaptive_plugin_target="$HOME/.gemini/antigravity-cli/plugins/adaptive-engineering"
+mkdir -p "$adaptive_plugin_target"
+cp -a dist/antigravity/adaptive-engineering/. "$adaptive_plugin_target/"
+```
+
+Restart Antigravity or begin a new agent session after installing or updating the plugin. The package contains the nine shared skills, four specialist agents, a persistent adaptive-engineering rule, and the canonical core.
 
 ## Agent Plugins 1.0
 

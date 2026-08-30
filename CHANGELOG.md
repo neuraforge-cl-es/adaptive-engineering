@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.3.0 — 2026-08-30
+
+- Added a generated Google Antigravity plugin using the official `plugin.json` schema.
+- Reused the canonical nine skills and core methodology without host-specific duplication.
+- Added four Antigravity-discoverable specialist agents and a compact persistent rule.
+- Added global, workspace, and Antigravity CLI installation instructions.
+- Extended zero-dependency validation and CI to build and verify the Antigravity package.
+
 ## 0.2.0 — 2026-08-30
 
 - Extracted a canonical, host-agnostic methodology under `core/`.

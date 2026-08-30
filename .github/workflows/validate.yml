@@ -20,9 +20,21 @@ jobs:
       - name: Build generated adapters
         run: |
           python3 scripts/build-agent-plugin.py
+          python3 scripts/build-antigravity.py
           python3 scripts/build-opencode.py
       - name: Validate generated adapters
         run: python3 scripts/validate.py --dist
+      - name: Test Antigravity plugin installation layout
+        run: |
+          adaptive_test_root="$(mktemp -d)"
+          adaptive_plugin_target="$adaptive_test_root/.gemini/config/plugins/adaptive-engineering"
+          mkdir -p "$adaptive_plugin_target"
+          cp -a dist/antigravity/adaptive-engineering/. "$adaptive_plugin_target/"
+          test -f "$adaptive_plugin_target/plugin.json"
+          test -f "$adaptive_plugin_target/skills/adaptive-engineering/SKILL.md"
+          test -f "$adaptive_plugin_target/agents/architect.md"
+          test -f "$adaptive_plugin_target/rules/adaptive-engineering.md"
+          test -f "$adaptive_plugin_target/core/PRINCIPLES.md"
       - name: Test Cursor install and uninstall
         run: |
           test_root="$(mktemp -d)"
