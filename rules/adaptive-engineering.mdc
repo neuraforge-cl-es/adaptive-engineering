@@ -1,0 +1,166 @@
+---
+description: "Adaptive engineering discipline: choose the least process necessary and produce the simplest verified solution."
+alwaysApply: true
+---
+# Adaptive Engineering
+
+Use the least process necessary to produce the simplest correct, verified solution.
+
+## Core principles
+
+1. Understand before changing.
+2. Reuse before creating.
+3. Prefer deletion or modification over addition when behavior remains correct.
+4. Prefer standard-library, framework-native, and already-installed capabilities before new dependencies.
+5. Match process depth to risk, scope, ambiguity, and reversibility.
+6. Test behavior that matters; do not manufacture tests that only mirror implementation details.
+7. Do not call work complete without concrete verification evidence.
+8. Complexity added must earn its keep.
+
+## Mandatory task triage
+
+Before substantial implementation, classify the task as FAST, STANDARD, or DEEP.
+
+### FAST
+Use when the change is local, low-risk, obvious, reversible, and normally touches no more than a few files.
+
+Typical examples:
+- rename or copy change
+- small UI adjustment
+- one-field mapping
+- localized bug with known cause
+- minor configuration change with no deployment or security impact
+
+FAST process:
+1. Inspect the relevant code.
+2. Check for an existing/native solution.
+3. Make the smallest coherent change.
+4. Run targeted verification.
+5. Simplify the diff if possible.
+
+Do not create design documents, new abstractions, or dependencies for a FAST task unless the codebase forces it.
+
+### STANDARD
+Use for moderate feature work, non-trivial bugs, local refactors, or changes spanning a subsystem.
+
+STANDARD process:
+1. Inspect current behavior and architecture.
+2. State assumptions and acceptance criteria when not obvious.
+3. Set a small complexity budget.
+4. Make a short implementation plan.
+5. Implement in coherent increments.
+6. Add or update meaningful tests.
+7. Run the simplification gate.
+8. Verify the final state.
+
+### DEEP
+Use when failure cost or ambiguity is high, or the task changes architecture/contracts/infrastructure.
+
+Escalate to DEEP for any of these unless there is strong evidence not to:
+- authentication, authorization, secrets, cryptography, or security boundaries
+- database/schema migrations or destructive data operations
+- public API or protocol compatibility
+- CI/CD, release, production deployment, networking, or infrastructure
+- cross-service changes or distributed workflows
+- concurrency, consistency, or transaction semantics
+- major dependency/framework changes
+- broad refactors with unclear blast radius
+- irreversible or difficult-to-rollback behavior
+
+DEEP process:
+1. Discover existing constraints and invariants.
+2. Define requirements and failure modes.
+3. Compare viable approaches and choose the simplest one that satisfies the constraints.
+4. Declare a complexity budget and rollback strategy.
+5. Produce a staged plan.
+6. Implement with tests/verification at each meaningful boundary.
+7. Review correctness, security, compatibility, and operability.
+8. Run the simplification gate.
+9. Perform final end-to-end verification.
+
+## Complexity budget
+
+Before a STANDARD or DEEP implementation, estimate the complexity you expect to add. Use relevant dimensions only:
+
+- files changed
+- modules/packages touched
+- new dependencies
+- new abstractions/types/interfaces
+- new persistent state or schema
+- new services/processes
+- new configuration/environment variables
+- new public surface area
+
+FAST defaults:
+- files changed: <= 3
+- new dependencies: 0
+- new services: 0
+- new abstractions: ideally 0
+
+STANDARD defaults:
+- files changed: <= 8 unless the repository structure requires more
+- new dependencies: 0 by default
+- new services: 0 by default
+- new abstractions: only where they remove real duplication or isolate a real boundary
+
+DEEP has no arbitrary file limit. Declare a task-specific budget and justify new dependencies, services, persistent state, and public interfaces.
+
+A budget is a tripwire, not a target. If implementation exceeds it, stop adding structure and run a simplification review before continuing.
+
+## Necessity and reuse gate
+
+Before creating something new, ask in this order:
+
+1. Can the requested outcome be achieved without code?
+2. Does the repository already contain the behavior or a nearby abstraction?
+3. Can the current framework/runtime/standard library do it directly?
+4. Can an already-installed dependency do it safely?
+5. Can an existing file/type/function be extended without making it incoherent?
+6. Only then create a new abstraction, dependency, service, or subsystem.
+
+Do not force reuse when the existing abstraction is wrong for the job. Simplicity means low total complexity, not minimum line count.
+
+## Simplification gate
+
+Before completion, inspect the diff and ask:
+
+- What can be deleted?
+- What can be collapsed into existing code?
+- Did we add a dependency that can be avoided?
+- Did we introduce a generic abstraction for a single concrete use?
+- Did we add configuration that can be derived or defaulted?
+- Did we duplicate validation, transformation, or error handling already present elsewhere?
+- Is any clever code harder to operate than a boring alternative?
+
+Prefer the simplest implementation that preserves correctness, readability, maintainability, and required performance.
+
+## Verification gate
+
+Never claim completion solely because code looks plausible.
+
+Use the strongest verification available for the task:
+- targeted tests
+- broader test suite
+- type checking
+- lint/static analysis
+- build
+- integration test
+- reproducible command or request
+- migration dry-run/rollback validation
+- deployment/config validation
+
+If a verification step cannot be run, state exactly what was not verified and why.
+
+## User overrides
+
+Commands or explicit user instructions may request FAST, STANDARD, or DEEP mode. Respect the requested depth, except do not skip safety-, security-, data-integrity-, compatibility-, or production-critical checks merely to satisfy a lower mode.
+
+## Completion style
+
+Keep execution updates proportional to the task. At completion, report concisely:
+
+- mode used and any escalation
+- what changed
+- verification performed and result
+- notable remaining risk or unverified item
+- complexity-budget variance only when meaningful

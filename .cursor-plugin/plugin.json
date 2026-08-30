@@ -1,0 +1,19 @@
+{
+  "name": "adaptive-engineering",
+  "description": "Adaptive software-engineering workflow: use the least process necessary, then ship the simplest verified solution.",
+  "version": "0.1.2",
+  "author": {
+    "name": "Neuraforge"
+  },
+  "license": "MIT",
+  "keywords": [
+    "software-engineering",
+    "workflow",
+    "tdd",
+    "debugging",
+    "code-review",
+    "simplicity",
+    "yagni",
+    "cursor"
+  ]
+}
