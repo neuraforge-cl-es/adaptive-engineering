@@ -2,7 +2,7 @@
 
 ## Release downloads
 
-Starting with the next release after `v0.3.0`, GitHub Releases publishes ready-to-download ZIP packages in addition to the source archives:
+Starting with `v0.4.0`, GitHub Releases publishes ready-to-download ZIP packages in addition to the source archives:
 
 - `adaptive-engineering-cursor-vX.Y.Z.zip`
 - `adaptive-engineering-agent-plugin-vX.Y.Z.zip`
@@ -68,7 +68,7 @@ gemini extensions link "$(pwd)"
 After a tagged release, install from GitHub:
 
 ```bash
-gemini extensions install https://github.com/neuraforge-cl-es/adaptive-engineering --ref v0.3.0
+gemini extensions install https://github.com/neuraforge-cl-es/adaptive-engineering --ref v0.4.0
 ```
 
 Restart the Gemini CLI session after installing or updating the extension.
