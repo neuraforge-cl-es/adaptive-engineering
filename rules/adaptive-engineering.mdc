@@ -16,6 +16,7 @@ Use the least process necessary to produce the simplest correct, verified soluti
 6. Test behavior that matters; do not manufacture tests that only mirror implementation details.
 7. Do not call work complete without concrete verification evidence.
 8. Complexity added must earn its keep.
+9. Repository evidence is the source of truth; persisted memory is re-verifiable context, not authority.
 
 ## Mandatory task triage
 
@@ -33,25 +34,29 @@ Typical examples:
 
 FAST process:
 1. Inspect the relevant code.
-2. Check for an existing/native solution.
-3. Make the smallest coherent change.
-4. Run targeted verification.
-5. Simplify the diff if possible.
+2. If relevant project memory exists, verify its evidence before relying on it.
+3. Check for an existing/native solution.
+4. Make the smallest coherent change.
+5. Run targeted verification.
+6. Simplify the diff if possible.
+7. Refresh or stale only affected persisted claims when applicable.
 
-Do not create design documents, new abstractions, or dependencies for a FAST task unless the codebase forces it.
+Do not create design documents, new abstractions, dependencies, or persistent memory for a FAST task unless the codebase or durable reuse value justifies it.
 
 ### STANDARD
 Use for moderate feature work, non-trivial bugs, local refactors, or changes spanning a subsystem.
 
 STANDARD process:
-1. Inspect current behavior and architecture.
-2. State assumptions and acceptance criteria when not obvious.
-3. Set a small complexity budget.
-4. Make a short implementation plan.
-5. Implement in coherent increments.
-6. Add or update meaningful tests.
-7. Run the simplification gate.
-8. Verify the final state.
+1. Inspect current behavior, architecture, and directly relevant project memory.
+2. Reverify persisted claims that influence planning or implementation.
+3. State assumptions and acceptance criteria when not obvious.
+4. Set a small complexity budget.
+5. Make a short implementation plan.
+6. Implement in coherent increments.
+7. Add or update meaningful tests.
+8. Run the simplification gate.
+9. Verify the final state.
+10. Run the memory consistency gate and refresh only affected durable claims.
 
 ### DEEP
 Use when failure cost or ambiguity is high, or the task changes architecture/contracts/infrastructure.
@@ -68,15 +73,17 @@ Escalate to DEEP for any of these unless there is strong evidence not to:
 - irreversible or difficult-to-rollback behavior
 
 DEEP process:
-1. Discover existing constraints and invariants.
-2. Define requirements and failure modes.
-3. Compare viable approaches and choose the simplest one that satisfies the constraints.
-4. Declare a complexity budget and rollback strategy.
-5. Produce a staged plan.
-6. Implement with tests/verification at each meaningful boundary.
-7. Review correctness, security, compatibility, and operability.
-8. Run the simplification gate.
-9. Perform final end-to-end verification.
+1. Discover existing constraints, invariants, and relevant persisted claims.
+2. Reverify every claim that influences the plan and search for contradictions across code, configuration, tests, schemas, and documentation.
+3. Define requirements and failure modes.
+4. Compare viable approaches and choose the simplest one that satisfies the constraints.
+5. Declare a complexity budget and rollback strategy.
+6. Produce a staged plan.
+7. Implement with tests/verification at each meaningful boundary.
+8. Review correctness, security, compatibility, and operability.
+9. Run the simplification gate.
+10. Perform final end-to-end verification.
+11. Run a scoped memory drift check and refresh or stale affected durable claims.
 
 ## Complexity budget
 
@@ -120,6 +127,17 @@ Before creating something new, ask in this order:
 
 Do not force reuse when the existing abstraction is wrong for the job. Simplicity means low total complexity, not minimum line count.
 
+## Evidence-grounded memory
+
+If `.adaptive/memory/claims.json` exists, treat it as optional project context governed by `core/MEMORY.md`.
+
+- Repository evidence is always authoritative.
+- A claim whose evidence fingerprint changed is `stale` until reverified.
+- Never silently preserve `trusted` status after evidence changes.
+- Persist only stable, reusable project knowledge with precise evidence.
+- Do not persist temporary task state, guesses, or facts that are cheap to rediscover.
+- Do not require a database, vector store, daemon, MCP server, or external service. Plain repository-local files must remain sufficient.
+
 ## Simplification gate
 
 Before completion, inspect the diff and ask:
@@ -134,6 +152,18 @@ Before completion, inspect the diff and ask:
 
 Prefer the simplest implementation that preserves correctness, readability, maintainability, and required performance.
 
+## Memory consistency gate
+
+When project memory exists or the task establishes durable knowledge, ask:
+
+- Did this change invalidate a trusted claim?
+- Did architecture, interfaces, dependencies, configuration, infrastructure, data models, security assumptions, or conventions change?
+- Are any claims still trusted although their evidence changed?
+- Is new durable knowledge worth recording?
+- Are new or refreshed claims grounded in exact evidence?
+
+If evidence changed, do not reuse the old claim until it has been reverified.
+
 ## Verification gate
 
 Never claim completion solely because code looks plausible.
@@ -147,7 +177,7 @@ Use the strongest verification available for the task:
 - integration test
 - reproducible command or request
 - migration dry-run/rollback validation
-- deployment/config validation
+- deployment/configuration validation
 
 If a verification step cannot be run, state exactly what was not verified and why.
 
