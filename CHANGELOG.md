@@ -1,5 +1,14 @@
 # Changelog
 
+## Unreleased
+
+- Added an evidence-grounded self-correcting memory model under `core/MEMORY.md`.
+- Added the portable `memory-grounding` skill, bringing the shared skill set to ten.
+- Added optional Git-friendly project memory at `.adaptive/memory/claims.json` with trusted, stale, unverified, and superseded claim states.
+- Integrated memory re-verification and drift checks into FAST, STANDARD, and DEEP workflows without introducing runtime infrastructure.
+- Added memory consistency rules to portable host instructions and the persistent Cursor rule.
+- Added behavioral scenarios for stale memory and architecture drift.
+
 ## 0.4.0 — 2026-08-30
 
 - Added community health files for contributions, security reporting, pull requests, and structured bug/feature issues.
