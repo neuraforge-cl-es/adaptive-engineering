@@ -55,6 +55,14 @@ Estimate only dimensions relevant to the task:
 
 Treat the budget as a tripwire, not a target. If implementation materially exceeds it, stop and simplify or revisit assumptions before adding more structure.
 
+## Evidence-grounded memory
+
+Persistent project memory is optional and must follow [MEMORY.md](MEMORY.md).
+
+Repository evidence is always the source of truth. Memory may summarize durable knowledge, but any claim that influences engineering work must remain re-verifiable. If its evidence changes or contradicts the claim, treat the claim as `stale` until it is checked again.
+
+Do not create memory for transient task state or cheap-to-rediscover facts. Do not add external infrastructure merely to support memory.
+
 ## Simplification gate
 
 Before completion, inspect the final change and ask:
@@ -68,6 +76,18 @@ Before completion, inspect the final change and ask:
 - Is a boring implementation easier to operate than a clever one?
 
 Preserve justified domain and security boundaries. Simplicity means low total complexity, not minimum line count.
+
+## Memory consistency gate
+
+If project-local memory exists or the task established durable knowledge, ask before completion:
+
+- Did this change invalidate any trusted claim?
+- Did architecture, interfaces, dependencies, configuration, infrastructure, data models, security assumptions, or project conventions change?
+- Are any claims still marked `trusted` even though their evidence changed?
+- Did this task establish stable knowledge worth recording?
+- Are new or refreshed claims grounded in exact evidence?
+
+A changed evidence fingerprint invalidates trust until the claim is reverified. Do not silently carry stale memory forward.
 
 ## Verification contract
 
