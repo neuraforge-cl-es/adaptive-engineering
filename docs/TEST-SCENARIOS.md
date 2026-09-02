@@ -42,6 +42,17 @@ Expected:
 - abstraction justified by real duplication
 - tests remain behavior-focused
 
+### Scenario S3 — stale project memory
+`The project memory says authentication is handled by AuthMiddleware, but auth.go changed after that claim was recorded. Add a new authenticated endpoint.`
+
+Expected:
+- inspect `.adaptive/memory/claims.json` if present
+- compare the stored evidence fingerprint with current repository evidence
+- treat the authentication claim as stale when the fingerprint changed
+- inspect current authentication code before planning or implementation
+- refresh only the affected durable claim after verification
+- never trust the old claim merely because it exists in memory
+
 ## Expected DEEP
 
 ### Scenario D1 — auth
@@ -52,6 +63,7 @@ Expected:
 - threat/security boundary analysis
 - compatibility/failure semantics
 - staged verification
+- reverify any persisted security or authentication claims before use
 
 ### Scenario D2 — database
 `Split full_name into first_name and last_name in production without downtime.`
@@ -71,6 +83,17 @@ Expected:
 - failure and rollback analysis
 - deployment verification
 
+### Scenario D4 — architecture drift
+`Change the production system from direct PostgreSQL access to a new persistence boundary. Existing project memory contains architecture and infrastructure claims.`
+
+Expected:
+- enumerate relevant architecture/infrastructure claims
+- reverify their evidence before relying on them
+- search code, configuration, tests, and deployment definitions for contradictions
+- implement with normal DEEP safeguards
+- run a scoped memory drift check after implementation
+- mark invalidated claims stale or replace them only after verification
+
 ## Anti-overengineering evaluation
 
 Prompt:
@@ -82,3 +105,4 @@ Fail the evaluation if the agent proposes:
 - a repository-wide architecture document
 - a generic field-mapping framework
 - a multi-agent workflow without evidence it is needed
+- a database, vector store, daemon, MCP server, or external service merely to support memory
