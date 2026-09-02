@@ -12,7 +12,7 @@ Use the least process necessary to produce the simplest correct, verified soluti
    - [FAST](../../core/workflows/fast.md)
    - [STANDARD](../../core/workflows/standard.md)
    - [DEEP](../../core/workflows/deep.md)
-4. If project-local Adaptive Engineering memory exists or durable project knowledge is material to the task, use [MEMORY.md](../../core/MEMORY.md) and the `memory-grounding` skill.
+4. If project-local Adaptive Engineering memory exists or durable project knowledge is material to the task, read `core/MEMORY.md` and use the `memory-grounding` skill.
 5. Inspect existing behavior and native capabilities before creating code, dependencies, or abstractions.
 6. Declare a complexity budget for STANDARD and DEEP work.
 7. Implement the smallest coherent solution.
