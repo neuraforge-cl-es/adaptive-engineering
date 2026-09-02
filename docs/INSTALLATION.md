@@ -68,7 +68,7 @@ gemini extensions link "$(pwd)"
 After a tagged release, install from GitHub:
 
 ```bash
-gemini extensions install https://github.com/neuraforge-cl-es/adaptive-engineering --ref v0.4.0
+gemini extensions install https://github.com/neuraforge-cl-es/adaptive-engineering --ref v0.5.0
 ```
 
 Restart the Gemini CLI session after installing or updating the extension.
@@ -105,7 +105,7 @@ mkdir -p "$adaptive_plugin_target"
 cp -a dist/antigravity/adaptive-engineering/. "$adaptive_plugin_target/"
 ```
 
-Restart Antigravity or begin a new agent session after installing or updating the plugin. The package contains the nine shared skills, four specialist agents, a persistent adaptive-engineering rule, and the canonical core.
+Restart Antigravity or begin a new agent session after installing or updating the plugin. The package contains the ten shared skills, four specialist agents, a persistent adaptive-engineering rule, and the canonical core.
 
 ## Agent Plugins 1.0
 
@@ -121,7 +121,7 @@ Output:
 dist/agent-plugin/adaptive-engineering/
 ```
 
-The generated package contains a root `plugin.json`, the nine skills, the canonical core, and the license. It is generated outside the repository root so native platform manifests cannot be discovered ambiguously.
+The generated package contains a root `plugin.json`, the ten skills, the canonical core, and the license. It is generated outside the repository root so native platform manifests cannot be discovered ambiguously.
 
 ## OpenCode
 
