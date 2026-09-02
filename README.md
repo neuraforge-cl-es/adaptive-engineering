@@ -54,13 +54,37 @@ A much larger change can still be **FAST** when it is isolated, reversible, and 
 
 | Mode | Use for | Workflow |
 |---|---|---|
-| **FAST** | Local, low-risk, reversible work | inspect → reuse → minimal change → verify → simplify |
-| **STANDARD** | Features, bugs, subsystem refactors | inspect → criteria → budget → implement/test → simplify → verify |
-| **DEEP** | Security, data, public contracts, CI/CD, infrastructure, distributed or high-risk changes | constraints → failures → trade-offs → staged plan → implement/test → review → simplify → E2E verify |
+| **FAST** | Local, low-risk, reversible work | inspect → memory check if relevant → reuse → minimal change → verify → simplify |
+| **STANDARD** | Features, bugs, subsystem refactors | inspect → reverify relevant claims → criteria → budget → implement/test → simplify → verify → memory consistency |
+| **DEEP** | Security, data, public contracts, CI/CD, infrastructure, distributed or high-risk changes | constraints + claims → reverify/drift check → failures → trade-offs → staged plan → implement/test → review → simplify → E2E verify |
 
 Every mode preserves the same core principles:
 
-**inspect first · reuse before adding · minimize complexity · verify with evidence · simplify before completion**
+**inspect first · evidence over memory · reuse before adding · minimize complexity · verify with evidence · simplify before completion**
+
+## Evidence-grounded self-correcting memory
+
+Adaptive Engineering can maintain optional, repository-local knowledge without turning memory into a second source of truth.
+
+When durable project memory is useful, it lives under:
+
+```text
+.adaptive/
+└── memory/
+    └── claims.json
+```
+
+Each claim records a narrow statement plus exact repository evidence and a deterministic fingerprint. Before a claim influences engineering work, its evidence can be checked again. If the evidence changes, the claim becomes **stale** until reverified.
+
+The rules are intentionally conservative:
+
+- **Evidence over memory** — code, configuration, schemas, tests, infrastructure definitions, and other repository evidence remain authoritative.
+- **Reverify before reuse** — persisted claims are context, not unquestioned facts.
+- **Stale, don't silently overwrite** — changed evidence invalidates trust until verification.
+- **Persist only durable knowledge** — temporary task state and cheap-to-rediscover facts do not belong in memory.
+- **No memory infrastructure requirement** — no database, vector store, daemon, MCP server, or external service is required.
+
+See [`core/MEMORY.md`](core/MEMORY.md) for the canonical model.
 
 ## Quick start
 
@@ -130,11 +154,12 @@ See the complete [platform matrix](docs/PLATFORMS.md).
 
 ### Skills
 
-Adaptive Engineering ships with nine shared engineering skills:
+Adaptive Engineering ships with ten shared engineering skills:
 
 - `adaptive-engineering`
 - `task-triage`
 - `existing-system-scan`
+- `memory-grounding`
 - `minimal-planning`
 - `verified-implementation`
 - `systematic-debugging`
@@ -174,6 +199,7 @@ Adaptive Engineering keeps the methodology separate from individual AI platforms
 core/
 ├── PRINCIPLES.md
 ├── METHODOLOGY.md
+├── MEMORY.md
 ├── spec.json
 └── workflows/
     ├── fast.md
@@ -230,9 +256,10 @@ The validation covers:
 
 Adaptive Engineering deliberately keeps its operational surface small:
 
-- **No MCP server required** — the methodology does not require network tools.
+- **No MCP server required** — the methodology and memory model do not require network tools.
 - **No mandatory subagents** — delegation is useful only when work separates cleanly.
 - **No external runtime dependencies** — the core remains portable.
+- **No mandatory memory database** — durable claims remain Git-friendly repository files.
 - **No process for process's sake** — workflow depth must be justified by task risk.
 - **No lowering safety to fit a mode** — security, integrity, compatibility, and production-critical verification always take precedence.
 
@@ -243,6 +270,7 @@ Start with:
 - [Installation](docs/INSTALLATION.md)
 - [Platform support](docs/PLATFORMS.md)
 - [Methodology overview](docs/METHODOLOGY.md)
+- [Evidence-grounded memory](core/MEMORY.md)
 - [Behavioral test scenarios](docs/TEST-SCENARIOS.md)
 - [Contributing](CONTRIBUTING.md)
 - [Security policy](SECURITY.md)
