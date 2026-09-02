@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.5.0 — 2026-09-02
 
 - Added an evidence-grounded self-correcting memory model under `core/MEMORY.md`.
 - Added the portable `memory-grounding` skill, bringing the shared skill set to ten.
