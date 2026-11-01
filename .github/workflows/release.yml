@@ -1,0 +1,51 @@
+name: Release assets
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out released tag
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.release.tag_name }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Verify release tag matches package version
+        shell: bash
+        run: |
+          package_version="$(python3 -c 'import json; print(json.load(open("core/spec.json"))["version"])')"
+          expected_tag="v${package_version}"
+          actual_tag="${{ github.event.release.tag_name }}"
+          if [[ "$actual_tag" != "$expected_tag" ]]; then
+            echo "Release tag $actual_tag does not match core/spec.json version $expected_tag" >&2
+            exit 1
+          fi
+
+      - name: Validate source package
+        run: python3 scripts/validate.py
+
+      - name: Build release assets
+        run: python3 scripts/package-release.py
+
+      - name: Validate generated adapters
+        run: python3 scripts/validate.py --dist
+
+      - name: Upload assets to GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release upload "${{ github.event.release.tag_name }}" \
+            dist/releases/*.zip \
+            dist/releases/SHA256SUMS.txt \
+            --clobber

@@ -1,0 +1,4 @@
+description = "Execute the current task using DEEP mode"
+prompt = """
+Use Adaptive Engineering DEEP mode for the current task. Discover constraints and invariants, define failure modes and rollback expectations, compare only viable approaches, declare a task-specific complexity budget, plan staged implementation and verification, review material risks, simplify, and perform end-to-end verification.
+"""

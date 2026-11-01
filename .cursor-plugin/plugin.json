@@ -1,0 +1,24 @@
+{
+  "name": "adaptive-engineering",
+  "description": "Adaptive software-engineering workflow: use the least process necessary, then ship the simplest verified solution.",
+  "version": "0.5.0",
+  "author": {
+    "name": "Neuraforge"
+  },
+  "homepage": "https://neuraforge.cl",
+  "repository": "https://github.com/neuraforge-cl-es/adaptive-engineering",
+  "logo": "assets/neuraforge-marketplace.png",
+  "license": "MIT",
+  "keywords": [
+    "software-engineering",
+    "workflow",
+    "tdd",
+    "debugging",
+    "code-review",
+    "simplicity",
+    "yagni",
+    "cursor",
+    "agent-skills",
+    "adaptive-engineering"
+  ]
+}

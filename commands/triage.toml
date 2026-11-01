@@ -1,0 +1,4 @@
+description = "Classify the current task as FAST, STANDARD, or DEEP"
+prompt = """
+Use the task-triage skill. Classify the current request as FAST, STANDARD, or DEEP from risk, scope, ambiguity, reversibility, and blast radius. Return the selected mode, one-sentence rationale, material risks, expected complexity budget, and any blocker. Do not implement unless the user also requested implementation.
+"""

@@ -1,0 +1,68 @@
+name: Feature request
+description: Propose an improvement to Adaptive Engineering
+title: "feat: "
+labels:
+  - enhancement
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Describe the problem first, then the smallest useful change that would solve it. Adaptive Engineering prefers minimal, verifiable additions over process or abstraction for its own sake.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or use case
+      description: What limitation, workflow problem, or user need should be addressed?
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: Describe the smallest coherent solution you think would address the problem.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: scope
+    attributes:
+      label: Primary scope
+      options:
+        - Canonical core / methodology
+        - Cursor
+        - Claude Code
+        - ChatGPT / Codex
+        - Gemini CLI
+        - Google Antigravity
+        - Agent Plugins 1.0
+        - OpenCode
+        - CI / tooling
+        - Documentation
+        - New platform integration
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: What existing capability, workaround, or simpler option did you consider?
+
+  - type: textarea
+    id: verification
+    attributes:
+      label: Acceptance / verification
+      description: How would we know this change works correctly?
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checklist
+      options:
+        - label: I searched existing issues and documentation for an existing solution or duplicate request.
+          required: true
+        - label: The proposal does not intentionally weaken safety, security, data integrity, compatibility, or production-critical verification.
+          required: true
